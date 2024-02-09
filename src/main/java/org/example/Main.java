@@ -19,6 +19,55 @@ public class Main {
         return reversedString;
     }
 
+    public static boolean isBalancedParentheses(String str){
+        Stack<Character> myStack = new Stack();
+        for(int i = 0; i < str.length(); i++ ){
+            myStack.push(str.charAt(i));
+        }
+        if(myStack.isEmpty()) return false;
+        Character x = str.charAt(0);
+        if(x.equals(')')) return false;
+        for(int i = 0; i < str.length(); i++ ){
+            char c = myStack.pop();
+            if(str.charAt(i) == c) {
+                return false;
+            }
+        }
+        return true;
+        /*
+        Stack<Character> stack = new Stack<>();
+        for (char p : parentheses.toCharArray()) {
+            if (p == '(') {
+                stack.push(p);
+            } else if (p == ')') {
+                if (stack.isEmpty() || stack.pop() != '(') {
+                    return false;
+                }
+            }
+        }
+        return stack.isEmpty();
+         */
+    }
+
+    public static void testAndPrint(String testStr, boolean expected) {
+        // Run the test and store the result
+        boolean result = isBalancedParentheses(testStr);
+
+        // Print the test string, expected result, and actual result
+        System.out.println("Test String: " + testStr);
+        System.out.println("EXPECTED: " + expected);
+        System.out.println("RESULT: " + result);
+
+        // Check if the test passed or failed
+        if (result == expected) {
+            System.out.println("STATUS: PASS");
+        } else {
+            System.out.println("STATUS: FAIL");
+        }
+
+        // Print a separator for better readability
+        System.out.println("--------------");
+    }
 
     public static void main(String[] args) {
         // Press Alt+Enter with your caret at the highlighted text to see how
@@ -40,6 +89,18 @@ public class Main {
             ----------------
             olleh
         */
+
+        testAndPrint("()", true);
+        testAndPrint("()()", true);
+        testAndPrint("(())", true);
+        testAndPrint("()()()", true);
+        testAndPrint("(()())", true);
+        testAndPrint(")()(", false);
+        testAndPrint(")(", false);
+        testAndPrint("(()", false);
+        testAndPrint("))", false);
+        testAndPrint("(", false);
+        testAndPrint(")", false);
 
     }
 }
